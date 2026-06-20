@@ -1,0 +1,1109 @@
+{
+  "info": {
+    "_postman_id": "d98fe351-c279-4141-8a30-a8e175971577",
+    "name": "Update my Postman training collection 1",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "30442663"
+  },
+  "item": [
+    {
+      "name": "Create list",
+      "item": [
+        {
+          "name": "Create list / Create list returns 200",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"listId\", response.id);\r",
+                  "pm.collectionVariables.set(\"listName\", response.name);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var randomInt = Math.floor(Math.random() * 100000)\r",
+                  "pm.collectionVariables.set(\"randomNumber\", randomInt)\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"test_{{randomNumber}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create list /  read created List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"listId\", response.id);\r",
+                  "pm.collectionVariables.set(\"listName\", response.name);\r",
+                  "\r",
+                  "console.log(\"Created ID:\", response.id);\r",
+                  "console.log(\"Created Name:\", response.name);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/list/{{listId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create list / Delete List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/list/{{list_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{list_id}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Get lists",
+      "item": [
+        {
+          "name": "Get Lists / Create List 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"listId1\", response.id);\r",
+                  "pm.collectionVariables.set(\"listName1\", response.name);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var randomInt = Math.floor(Math.random() * 100000)\r",
+                  "pm.collectionVariables.set(\"randomNumber\", randomInt)\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"test_{{randomNumber}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lists / Create List 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"listId2\", response.id);\r",
+                  "pm.collectionVariables.set(\"listName2\", response.name);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var randomInt = Math.floor(Math.random() * 100000)\r",
+                  "pm.collectionVariables.set(\"randomNumber\", randomInt)\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"test_{{randomNumber}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lists / read created lists",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log(\"BEFORE\");\r",
+                  "\r",
+                  "pm.sendRequest({\r",
+                  "    url: \"https://postman-echo.com/get\",\r",
+                  "    method: \"GET\"\r",
+                  "}, function (err, response) {\r",
+                  "    if (err) {\r",
+                  "        console.error(err);\r",
+                  "    } else {\r",
+                  "        console.log(response.json());\r",
+                  "    }\r",
+                  "});\r",
+                  "``\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "const listId1 = pm.collectionVariables.get(\"listId1\");",
+                  "const listId2 = pm.collectionVariables.get(\"listId2\");",
+                  "",
+                  "pm.test(\"List 1 exists\", () => {",
+                  "    const list = response.lists.find(l => l.id == listId1);",
+                  "    pm.expect(list).to.not.be.undefined;",
+                  "});",
+                  "",
+                  "pm.test(\"List 2 exists\", () => {",
+                  "    const list = response.lists.find(l => l.id == listId2);",
+                  "    pm.expect(list).to.not.be.undefined;",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lists / Delete List 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/list/{{listId1}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId1}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lists / Delete List 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/list/{{listId2}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId2}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Lists / verified deleted lists",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "console.log(\"BEFORE\");\r",
+                  "\r",
+                  "pm.sendRequest({\r",
+                  "    url: \"https://postman-echo.com/get\",\r",
+                  "    method: \"GET\"\r",
+                  "}, function (err, response) {\r",
+                  "    if (err) {\r",
+                  "        console.error(err);\r",
+                  "    } else {\r",
+                  "        console.log(response.json());\r",
+                  "    }\r",
+                  "});\r",
+                  "``\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", () => {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "const response = pm.response.json();",
+                  "",
+                  "const listId1 = pm.collectionVariables.get(\"listId1\");",
+                  "const listId2 = pm.collectionVariables.get(\"listId2\");",
+                  "",
+                  "pm.test(\"List 1 was deleted\", () => {",
+                  "    const list = response.lists.find(l => l.id == listId1);",
+                  "    pm.expect(list).to.be.undefined;",
+                  "});",
+                  "",
+                  "pm.test(\"List 2 was deleted\", () => {",
+                  "    const list = response.lists.find(l => l.id == listId2);",
+                  "    pm.expect(list).to.be.undefined;",
+                  "});",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Update list",
+      "item": [
+        {
+          "name": "Update List / Create List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "\r",
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"listId\", response.id);\r",
+                  "pm.collectionVariables.set(\"originalName\", response.name);\r",
+                  "\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "var randomInt = Math.floor(Math.random() * 100000)\r",
+                  "pm.collectionVariables.set(\"randomNumber\", randomInt)\r",
+                  "\r",
+                  "\r",
+                  "const randomName = \"list_\" + Math.floor(Math.random() * 10000);\r",
+                  "pm.environment.set(\"nameForList\", randomName);\r",
+                  "console.log(\"Generated list name:\", randomName);\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"name\": \"test_{{randomNumber}}\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/folder/{{folder_id}}/list",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "folder",
+                "{{folder_id}}",
+                "list"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update List / Update List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.collectionVariables.set(\"updatedName\", response.name);\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"List name was updated\", () => {\r",
+                  "    pm.expect(response.name).to.eql(\r",
+                  "        pm.collectionVariables.get(\"updatedName\")\r",
+                  "    );\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              },
+              {
+                "key": "content-type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated List {{randomNumber}}\"\n}\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/list/{{listId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update List / Get update List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json();\r",
+                  "\r",
+                  "pm.test(\"Status code is 200\", () => {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Correct list returned\", () => {\r",
+                  "    pm.expect(response.id).to.eql(\r",
+                  "        pm.collectionVariables.get(\"listId\")\r",
+                  "    );\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Updated name is saved\", () => {\r",
+                  "    pm.expect(response.name).to.eql(\r",
+                  "        pm.collectionVariables.get(\"updatedName\")\r",
+                  "    );\r",
+                  "});\r",
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "value",
+                  "value": "{{token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/list/{{listId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update List / Delete List",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            },
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript",
+                "packages": {},
+                "requests": {}
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "{{token}}"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/list/{{listId}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "list",
+                "{{listId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "randomNumber",
+      "value": ""
+    },
+    {
+      "key": "list_id",
+      "value": ""
+    },
+    {
+      "key": "listId",
+      "value": ""
+    },
+    {
+      "key": "listName",
+      "value": ""
+    },
+    {
+      "key": "listId1",
+      "value": ""
+    },
+    {
+      "key": "listName1",
+      "value": ""
+    },
+    {
+      "key": "listId2",
+      "value": ""
+    },
+    {
+      "key": "listName2",
+      "value": ""
+    },
+    {
+      "key": "originalName",
+      "value": ""
+    },
+    {
+      "key": "updatedName",
+      "value": ""
+    }
+  ]
+}
